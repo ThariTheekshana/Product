@@ -1,0 +1,23 @@
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+.vscode/
+ios/Pods/
+ios/.symlinks/
+android/.gradle/
+*.g.dart
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code
+.claude/
+
+# Flutter generated iOS files
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
