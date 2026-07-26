@@ -1,5 +1,4 @@
-/// Base class for all app-level exceptions.
-/// UI layers catch [AppException] — never raw [Exception] or error strings.
+// errors/app_errors.dart
 abstract class AppException implements Exception {
   final String message;
   const AppException(this.message);

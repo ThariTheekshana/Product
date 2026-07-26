@@ -1,3 +1,4 @@
+// utils/app_constants.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -103,7 +104,7 @@ class AppTextStyles {
         height: 1.6,
       );
 
-  // ── Favourites empty state ────────────────────────────────
+  // ── Favourites empty state 
   static TextStyle? emptyTitle(ThemeData t) =>
       t.textTheme.titleMedium?.copyWith(
         color: t.colorScheme.outline,
