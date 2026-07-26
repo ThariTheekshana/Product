@@ -73,7 +73,7 @@ Lightweight MVVM — four layers: `ApiService` → `ProductRepository` → `Prod
 
 **Screen Recording**
 
-https://github.com/ThariTheekshana/Product/raw/main/screen%20record/ScreenRecord.mp4
+https://github.com/ThariTheekshana/Product/raw/main/Screen%20Record/ScreenRecord.mp4
 
 ---
 
@@ -81,26 +81,26 @@ https://github.com/ThariTheekshana/Product/raw/main/screen%20record/ScreenRecord
 
 **Product List Screen**
 
-![Product List](screenshots/Product%20List%20Screen.png)
+![Product List](Screenshots/Product%20List%20Screen.png)
 
 **Dark Theme Product List**
 
-![Dark Theme](screenshots/Dark%20Theme%20Product%20List.png)
+![Dark Theme](Screenshots/Dark%20Theme%20Product%20List.png)
 
 **Search Product**
 
-![Search](screenshots/Search%20Product.png)
+![Search](Screenshots/Search%20Product.png)
 
 **Product Details**
 
-![Product Details](screenshots/Product%20Details.png)
+![Product Details](Screenshots/Product%20Details.png)
 
 **Favourite Screen**
 
-![Favourites](screenshots/Favourite%20Screen.png)
+![Favourites](Screenshots/Favourite%20Screen.png)
 
 **Added Favourite**
 
-![Added Favourite](screenshots/Added%20Favourite.png)
+![Added Favourite](Screenshots/Added%20Favourite.png)
 
 [![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/ThariTheekshana/Product/releases/download/v1.0.0/app-release.apk)
