@@ -1,67 +1,106 @@
-Product Catalogue App
+# Product Catalogue App
 
-A simple Flutter product catalogue app built as a practical assessment.
+A Flutter app that fetches products from a public API and lets users browse, search, and save favourites.
 
-Project Overview
+---
 
-The app fetches a live product list from a public API and lets the user:
+## Features
 
-Browse products in a two-column grid (image, name, price, category, favourite icon)
-Open a product's details screen (larger image, full description, favourite button)
-Search products by name (substring match, updates as you type)
-Mark/unmark favourites, kept in sync between the list and details screens
-Favourites persist after the app is closed and reopened
-Switch between a light and dark theme (also persisted)
-See proper loading, error (with retry), and empty states
+- Browse products in a 2-column grid (image, name, price, category)
+- View full product details
+- Search products by name in real time
+- Mark / unmark favourites (synced across screens, saved locally)
+- Light and dark theme toggle (saved locally)
+- Loading, error with retry, and empty states
 
-Product data comes from the free Fake Store API rather than hard-coded mock data, to demonstrate real HTTP integration, JSON parsing, and error handling.
+---
 
-Setup Instructions
+## Setup
 
-Prerequisites: Flutter SDK (3.22+) installed and on your PATH.
+Requires Flutter SDK 3.22+
 
-bash
-# 1. Get dependencies
+```bash
 flutter pub get
-
-# 2. Run on a connected device / emulator
 flutter run
+```
 
-# 3. Build a release APK
-flutter build apk --release
-# Output: build/app/outputs/flutter-apk/app-release.apk
-Architecture
+---
 
-Folder structure (lightweight MVVM):
+## Project Structure
 
+```
 lib/
-  models/        # Product - plain data class + fromJson
-  services/      # ApiService - raw HTTP call to the Fake Store API
-  repositories/  # ProductRepository - thin layer between provider and API service
-  providers/     # ProductProvider (list/search/favourites state), ThemeProvider
-  views/         # ProductListScreen, ProductDetailsScreen
-  widgets/       # ProductCard, StatusView (shared loading/error/empty UI)
-  routes/        # go_router configuration
-  utils/         # AppTheme (light/dark ThemeData)
+├── main.dart
+├── models/         # Product data class + fromJson
+├── services/       # HTTP call to Fake Store API
+├── repositories/   # Thin layer between provider and service
+├── providers/      # ProductProvider (state), ThemeProvider
+├── views/          # ProductListScreen, ProductDetailsScreen, FavouritesScreen
+├── widgets/        # ProductCard, StatusView (loading/error/empty)
+├── routes/         # go_router setup
+├── utils/          # AppTheme, AppConstants (strings, text styles)
+└── errors/         # Typed exceptions (Network, Server, Parse, Unexpected)
+```
 
-State management: provider package. ProductProvider is a ChangeNotifier acting as the ViewModel - it owns the product list, search query, favourite IDs, and a ViewState enum (loading / loaded / error) that the UI switches on. ThemeProvider is a separate, small ChangeNotifier so theme state doesn't clutter the product logic.
+---
 
-API integration: ApiService makes a single GET request to fakestoreapi.com/products, decodes the JSON, and maps it to Product objects. It throws a typed ApiException on network/parsing/server errors, which ProductProvider catches and turns into the error state (with a message and retry action) the UI can show.
+## Architecture
 
-Navigation: go_router, with the product object passed via extra to the details route so there's no need to re-fetch or look up a product by ID.
+Lightweight MVVM — four layers: `ApiService` → `ProductRepository` → `ProductProvider` → UI.
 
-Favourites & theme persistence: shared_preferences. Favourite product IDs are stored as a string list; the theme choice as a bool. Both are loaded once on startup and written whenever they change.
+- **State management** — `provider` package. `ProductProvider` owns the product list, search query, favourites, and a `ViewState` enum the UI switches on.
+- **Navigation** — `go_router`. Product object is passed via `extra` to the details route.
+- **Persistence** — `shared_preferences` for favourite IDs and theme choice.
+- **Error handling** — `ApiService` throws typed `AppException` subclasses; `ProductProvider` catches them and exposes an error state with a retry action.
 
-Assumptions
-The Fake Store API's public demo endpoint is stable enough to rely on for this assessment; no authentication is required.
-"Favourites" only needs to persist locally on-device - no backend sync.
-A 2-column grid is a reasonable layout for a phone-sized catalogue; no tablet-specific layout was implemented since it wasn't asked for.
-Challenges
-Balancing "don't over-architect" with still having a clean, testable separation of concerns - kept to four small layers (API service, repository, provider, UI) instead of adding use-case or domain layers that would be overkill for this scope.
-Making sure favourite state stays in sync between the list and details screens without duplicating state - solved by having both screens read favourite status from the same ProductProvider rather than local widget state.
-Hit a crash where favourites failed to load because of leftover invalid data in local storage (int.parse throwing on a non-numeric string). Fixed by using int.tryParse and filtering out anything invalid instead of assuming stored data is always well-formed.
-Improvements
-Add unit tests for ProductProvider (search filtering, favourite toggling) and ApiService (mocked HTTP responses).
-Debounce the search field if the product list were much larger.
-Add pull-to-refresh on the list screen.
-Show a small "no internet" banner distinct from a generic server error.
+---
+
+## Packages
+
+| Package | Purpose |
+|---|---|
+| `provider` | State management |
+| `go_router` | Navigation |
+| `http` | API requests |
+| `shared_preferences` | Local persistence |
+| `cached_network_image` | Image loading & caching |
+| `flutter_screenutil` | Responsive sizing |
+| `google_fonts` | Poppins font |
+
+---
+
+## Demo
+
+**Screen Recording**
+
+https://github.com/ThariTheekshana/Product/raw/main/screen%20record/ScreenRecord.mp4
+
+---
+
+## Screenshots
+
+**Product List Screen**
+
+![Product List](screenshots/Product%20List%20Screen.png)
+
+**Dark Theme Product List**
+
+![Dark Theme](screenshots/Dark%20Theme%20Product%20List.png)
+
+**Search Product**
+
+![Search](screenshots/Search%20Product.png)
+
+**Product Details**
+
+![Product Details](screenshots/Product%20Details.png)
+
+**Favourite Screen**
+
+![Favourites](screenshots/Favourite%20Screen.png)
+
+**Added Favourite**
+
+![Added Favourite](screenshots/Added%20Favourite.png)
+
+[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/ThariTheekshana/Product/releases/download/v1.0.0/app-release.apk)
